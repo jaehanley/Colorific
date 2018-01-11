@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.rating {
+  font-size: 40px;
+  line-height: 60px;
+}
+
+.ratio {
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
+}
