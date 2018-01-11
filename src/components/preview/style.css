@@ -11,10 +11,29 @@
 .rating {
   font-size: 40px;
   line-height: 60px;
+  font-smoothing: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .ratio {
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 15px;
   margin-top: 5px;
+  letter-spacing: 0.1px;
+}
+
+.explainer {
+  padding: 10px 20px;
+  background-color: #111;
+  color: #eee;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.rating,
+.ratio,
+.explainer {
+  user-select: none;
+  cursor: default;
 }

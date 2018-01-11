@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import chroma from 'chroma-js';
 import {
   setForeground,
   setBackground,
   swapColors,
+  setControlsShown
 } from 'actions/colors';
+import ColorInput from 'components/colorInput';
 import swapWhite from 'assets/swap-white.svg';
-import swapBlack from 'assets/swap-black.svg';
-import chroma from 'chroma-js';
 import style from './style.css';
 
 class Controls extends Component {
@@ -18,61 +19,127 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
+    pickerShown: PropTypes.bool.isRequired,
+    setControlsShown: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showForegroundEditor: false,
+      showBackgroundEditor: false,
+    }
+  }
+
+  showForegroundEditor() {
+    this.props.setControlsShown(true);
+    this.setState({
+      showForegroundEditor: true,
+      showBackgroundEditor: false,
+    });
+  }
+
+  showBackgroundEditor() {
+    this.props.setControlsShown(true);
+    this.setState({
+      showForegroundEditor: false,
+      showBackgroundEditor: true,
+    });
+  }
+
+  hideEditors() {
+    this.props.setControlsShown(false);
+    this.setState({
+      showForegroundEditor: false,
+      showBackgroundEditor: false,
+    });
+  }
 
   render() {
     const {
       background,
       foreground,
+      pickerShown
     } = this.props;
 
-    const lums = chroma(background).luminance();
-    const isDark = lums <= 0.5;
+
+    const {
+      showForegroundEditor,
+      showBackgroundEditor,
+    } = this.state;
 
     return (
-      <div
-        className={style.container}
-        style={{
-          backgroundColor: isDark
-            ? chroma(background).brighten(0.5)
-            : chroma(background).darken(0.5),
-          color: isDark ? '#fff' : '#222',
-        }}>
-        <label className={style.inputLabel}>
-          <b>Foreground</b>
-          <input
-            type='color'
-            className={style.colorInput}
-            value={chroma(foreground).hex()}
-            onChange={(e) => {
-              this.props.setForeground(chroma(e.target.value).hex())
-            }}/>
-          <span className={style.hexValue}>
-            {chroma(foreground).hex()}
-          </span>
-        </label>
-        <button
-          aria-label='swap colors'
-          className={style.swapBtn}
-          onClick={() => this.props.swapColors()}>
-          <img
-            aria-hidden
-            src={isDark ? swapWhite : swapBlack}/>
-        </button>
-        <label className={style.inputLabel}>
-          <b>Background</b>
-          <input
-            type='color'
-            className={style.colorInput}
-            value={chroma(background).hex()}
-            onChange={(e) => {
-              this.props.setBackground(chroma(e.target.value).hex())
-            }}/>
-          <span className={style.hexValue}>
-            {chroma(background).hex()}
-          </span>
-        </label>
-      </div>
+      <Fragment>
+        <div
+          aria-hidden={pickerShown}
+          disabled={pickerShown}
+          className={style.container}
+          tabIndex={pickerShown ? -1 : undefined}>
+          <button
+            disabled={pickerShown}
+            aria-label={`foreground color: ${chroma(foreground).name()}`}
+            id='foreground-btn'
+            className={style.inputLabel}
+            onClick={() => this.showForegroundEditor()}>
+            <b aria-hidden>Foreground</b>
+            <div
+              aria-hidden
+              className={style.colorInput}
+              style={{
+                backgroundColor: chroma(foreground).hex(),
+              }}
+              />
+            <span
+              aria-hidden
+              className={style.hexValue}>
+              {chroma(foreground).hex()}
+            </span>
+          </button>
+          <button
+            disabled={pickerShown}
+            aria-label='swap colors'
+            className={style.swapBtn}
+            onClick={() => this.props.swapColors()}>
+            <img
+              aria-hidden={true}
+              alt='swap colors'
+              src={swapWhite}/>
+          </button>
+          <button
+            disabled={pickerShown}
+            aria-label={`background color: ${chroma(background).name()}`}
+            id='background-btn'
+            className={style.inputLabel}
+            onClick={() => this.showBackgroundEditor()}>
+            <b aria-hidden>Background</b>
+            <div
+              aria-hidden
+              className={style.colorInput}
+              style={{
+                backgroundColor: chroma(background).hex()
+              }}/>
+            <span
+              aria-hidden
+              className={style.hexValue}>
+              {chroma(background).hex()}
+            </span>
+          </button>
+        </div>
+        {(showForegroundEditor || (!showForegroundEditor && !showBackgroundEditor && pickerShown)) && (
+          <ColorInput
+            color={chroma(foreground).hex()}
+            floatLeft
+            onChange={(hex) => this.props.setForeground(chroma(hex).hex())}
+            onClose={() => this.hideEditors()} />
+        )}
+        {showBackgroundEditor && (
+          <ColorInput
+            color={chroma(background).hex()}
+            floatLeft={false}
+            onChange={(hex) => this.props.setBackground(chroma(hex).hex())}
+            onClose={() => this.hideEditors()} />
+        )}
+      </Fragment>
     );
   }
 }
@@ -81,6 +148,7 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
+    pickerShown: state.colors.controlsShown || false,
   };
 }
 
@@ -94,6 +162,9 @@ function mapDispatchToProps(dispatch) {
     },
     swapColors: () => {
       dispatch(swapColors());
+    },
+    setControlsShown: (bool) => {
+      dispatch(setControlsShown(bool));
     },
   }
 }

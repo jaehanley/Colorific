@@ -1,11 +1,31 @@
-const electron = require('electron')
+const electron = require('electron');
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
+const ghReleases = require('electron-gh-releases');
+
+const updaterOptions = {
+  repo: 'darrellhanley/Colorific',
+  currentVersion: app.getVersion(),
+}
+
+const updater = new ghReleases(updaterOptions);
+
+updater.check((err, status) => {
+  if (!err && status) {
+    updater.download()
+  }
+});
+
+updater.on('update-downloaded', (info) => {
+  updater.install()
+});
+
+updater.autoUpdater;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,11 +33,23 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 340, height: 600 })
+  mainWindow = new BrowserWindow({
+    width: 340,
+    height: 600,
+    minWidth: 340,
+    minHeight: 520,
+    maxWidth: 430,
+    maxHeight: 800,
+    titleBarStyle: 'hiddenInset',
+    fullscreen: false,
+    icon: path.join(__dirname, 'assets/mac/icon.icns'),
+    transparent: true,
+    hasShadow: true,
+  });
 
   // and load the index.html of the app.
   const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
+    pathname: path.join(__dirname, 'build/index.html'),
     protocol: 'file:',
     slashes: true
   });

@@ -1,13 +1,21 @@
 .container {
   display: flex;
-  padding: 15px;
+  padding: 5px 15px 10px;
   justify-content: space-around;
+  color: #fff;
+  background-color: color(#000 alpha(-10%));
 }
 
 .swapBtn {
   appearance: none;
   background: transparent;
   border: 0 none;
+  border-radius: 5px;
+
+  &:focus {
+    outline: 0 none;
+    background-color: rgba(255,255,255,0.2);
+  }
 }
 
 .inputLabel {
@@ -16,25 +24,45 @@
   text-align: center;
   font-size: 13px;
   line-height: 20px;
+  appearance: none;
+  background: transparent;
+  border: 0 none;
+  color: inherit;
+  width: 90px;
+
+  &:focus {
+    outline: 0 none;
+
+    & .colorInput {
+      box-shadow: 0 0 0 3px #fff;
+    }
+  }
 
   & b {
-    font-weight: 400;
+    font-weight: 600;
+    font-smoothing: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-bottom: 2px;
+    text-align: center;
+    display: block;
+    width: 100%;
   }
 }
 
 .colorInput {
   width: 100%;
-  border: 0 none;
-  padding: 0;
-  appearance: none;
-  background: transparent;
-  border-image: none;
-  height: 30px;
+  height: 20px;
+  border-radius: 5px;
+  border: solid 2px rgba(255,255,255,0.5);
 }
 
 .hexValue {
   font-size: 12px;
   line-height: 15px;
   opacity: 0.6;
-  margin-top: 3px;
+  margin-top: 5px;
+  text-align: center;
+  display: block;
+  width: 100%;
 }

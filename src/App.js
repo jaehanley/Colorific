@@ -3,6 +3,10 @@ import store from 'store/configureStore.js';
 import { Provider } from 'react-redux';
 import Preview from 'components/preview';
 import Controls from 'components/controls';
+import Chrome from 'components/chrome';
+import ColorBlindOptions from 'components/colorBlindOptions';
+import SavedSwatches from 'components/savedSwatches';
+import isElectron from 'utils/isElectron.js';
 import style from  './App.css';
 
 class App extends Component {
@@ -10,7 +14,13 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className={style.app}>
+          {isElectron() ? (
+            <Chrome />
+          ) : undefined}
+          
+          <ColorBlindOptions />
           <Preview />
+          <SavedSwatches />
           <Controls />
         </div>
       </Provider>

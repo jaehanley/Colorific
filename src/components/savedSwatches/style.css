@@ -1,0 +1,167 @@
+:root {
+  --swatchSize: 40px;
+}
+
+.container {
+  display: flex;
+  background-color: #000;
+  height: 60px;
+}
+
+.saveBtn {
+  appearance: none;
+  background: transparent;
+  border: 0 none;
+  width: 50px;
+  padding: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &:focus {
+    outline: 0 none;
+    background-color: rgba(255,255,255,0.2);
+  }
+}
+
+.swatchContainer {
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 0;
+
+  &::after {
+    /* Spacing fix */
+    content: '';
+    width: 15px;
+    height: 100%;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+.swatchObject {
+  position: relative;
+  width: var(--swatchSize);
+  height: var(--swatchSize);
+  border-radius: 3px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 0 -4px #fff;
+
+  & + .swatchObject {
+    margin-left: 15px;
+  }
+
+  &.active {
+    box-shadow: 0 6px 0 -4px #fff;
+  }
+}
+
+.swatch {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  border: 0 none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: box-shadow 0.3s;
+    pointer-events: none;
+  }
+
+  &:not([disabled]) {
+    &:focus,
+    &:hover {
+      &::after {
+        box-shadow: inset 0 0 0 5px #fff;
+      }
+    }
+  }
+}
+
+.trash {
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-bottom: 35px solid #000;
+  border-left: 35px solid transparent;
+  pointer-events: none;
+
+  & button {
+    appearance: none;
+    background: transparent;
+    border: 0 none;
+    display: inline;
+    position: absolute;
+    padding: 0;
+    bottom: -33px;
+    right: 3px;
+    pointer-events: all;
+
+    &:focus {
+      outline: 0 none;
+
+      &::after {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background-color: #fff;
+        border-radius: 2px;
+        position: absolute;
+        bottom: 4px;
+        left: -6px;
+      }
+    }
+  }
+}
+
+.foreground {
+  pointer-events: none;
+  position: absolute;
+  border-bottom: var(--swatchSize) solid;
+  width: 0;
+  height: 0;
+  border-right: var(--swatchSize) solid transparent;
+  left: 0;
+  bottom: 0;
+}
+
+.skipBtns {
+  position: fixed;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  z-index: 100;
+  padding: 5px 10px;
+  text-decoration: none;
+  pointer-events: none;
+  font-size: 14px;
+
+  &:focus {
+    outline: 0 none;
+    bottom: 80px;
+    opacity: 1;
+  }
+}

@@ -1,10 +1,18 @@
 {
   "name": "colorific",
-  "version": "0.1.0",
+  "productName": "colorific",
+  "version": "0.4.0",
+  "description": "A color contrast and swatch managment tool",
+  "author": {
+    "name": "Darrell Hanley",
+    "email": "contact@darrellhanley.com",
+    "url": "https://www.darrellhanley.com"
+  },
+  "license": "(MIT OR Apache-2.0)",
   "private": true,
-  "main": "electron-starter.js",
   "homepage": "./",
   "dependencies": {
+    "@redux-offline/redux-offline": "^2.2.1",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
@@ -15,8 +23,10 @@
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
     "chroma-js": "^1.3.5",
+    "color-blind": "^0.1.1",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
+    "electron-gh-releases": "^2.0.4",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-loader": "1.9.0",
@@ -55,10 +65,14 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron": "electron .",
-    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron ."
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron-pack": "electron-builder --dir",
+    "electron-dist": "electron-builder",
+    "postinstall": "install-app-deps"
   },
   "devDependencies": {
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "electron-builder": "^19.55.2"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -101,5 +115,14 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "build": {
+    "appId": "com.colorific",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }
