@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { contrast } from 'chroma-js';
+import chroma, { contrast } from 'chroma-js';
 import style from './style.css';
 
 class Preview extends Component {
@@ -18,12 +18,15 @@ class Preview extends Component {
 
     let ranking;
     const rating = contrast(foreground, background);
+    const lums = chroma(background).luminance();
+    const isDark = lums <= 0.5;
+
     if (rating >= 7) {
       ranking = 'AAA';
     } else if (rating >= 4.5) {
       ranking = 'AA';
     } else if (rating >= 3) {
-      ranking = 'A';
+      ranking = 'AA Large';
     } else {
       ranking = 'Fail';
     }
@@ -43,6 +46,13 @@ class Preview extends Component {
         <span className={style.ratio}>
           {rating.toFixed(3)}:1
         </span>
+        <span
+          className={style.overlay}
+          style={{
+            backgroundColor: isDark
+            ? chroma(background).brighten(0.3)
+            : chroma(background).darken(0.3),
+          }} />
       </div>
     );
   }
