@@ -52,6 +52,7 @@ class Preview extends Component {
             backgroundColor: isDark
             ? chroma(background).brighten(0.3)
             : chroma(background).darken(0.3),
+            '-webkit-app-region': 'drag',
           }} />
       </div>
     );
