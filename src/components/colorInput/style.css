@@ -1,0 +1,20 @@
+.overlay {
+  position: fixed;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.colorControls {
+  position: fixed;
+  bottom: 82px;
+
+  &.leftAlgin {
+    left: 10px;
+  }
+
+  &.rightAlign {
+    right: 10px;
+  }
+}
