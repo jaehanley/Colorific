@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import chroma, { mix } from 'chroma-js';
+import blind from 'color-blind';
 import {
   setForeground,
   setBackground,
   swapColors,
 } from 'actions/colors';
 import swapWhite from 'assets/swap-white.svg';
-import chroma from 'chroma-js';
 import style from './style.css';
 
 class Controls extends Component {
@@ -17,16 +18,30 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
+    blindness: PropTypes.string,
+    setting: PropTypes.string,
   };
 
   render() {
     const {
       background,
       foreground,
+      blindness,
+      setting,
     } = this.props;
 
+    let containerBackground = chroma(background);
+    if (blindness && blindness !== 'common') {
+      const modifier = blind[setting];
+      containerBackground = modifier(background)
+    }
+
     return (
-      <div className={style.container}>
+      <div
+        className={style.container}
+        style={{
+          backgroundColor: mix('#1a1a1a', containerBackground, 0.2),
+        }}>
         <label className={style.inputLabel}>
           <b>Foreground</b>
           <input
@@ -71,6 +86,8 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
+    blindness: state.colors.blindness,
+    setting: state.colors.setting,
   };
 }
 
