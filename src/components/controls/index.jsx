@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import chroma, { mix } from 'chroma-js';
+import chroma from 'chroma-js';
 import blind from 'color-blind';
 import {
   setForeground,
@@ -40,7 +40,7 @@ class Controls extends Component {
       <div
         className={style.container}
         style={{
-          backgroundColor: mix('#1a1a1a', containerBackground, 0.2),
+          backgroundColor: chroma(containerBackground).darken(3),
         }}>
         <label className={style.inputLabel}>
           <b>Foreground</b>

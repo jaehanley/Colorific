@@ -10,10 +10,11 @@
   flex-shrink: 1;
   font-size: 12px;
   line-height: 15px;
-  height: 30px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   & span {
     opacity: 0.5;
@@ -26,6 +27,20 @@
       & + span {
         opacity: 1;
       }
+
+      & ~ .triangle {
+        display: block;
+      }
     }
   }
+}
+
+.triangle {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  margin-left: -5px;
+  display: none;
+  width: 10px;
+  height: 10px;
 }

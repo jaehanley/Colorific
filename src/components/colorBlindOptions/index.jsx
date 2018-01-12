@@ -50,13 +50,13 @@ class ColorBlindOptions extends Component {
       const modifier = blind[setting];
       containerBackground = modifier(background)
     }
+    const previewColor = containerBackground;
+
+    containerBackground = chroma(containerBackground).darken(1);
+    const secondRowColor = chroma(containerBackground).brighten(0.5);
 
     const lums = chroma(containerBackground).luminance();
     const isDark = lums <= 0.5;
-
-    containerBackground = isDark
-      ? chroma(containerBackground).darken(0.15)
-      : chroma(containerBackground).brighten(0.15);
 
     return (
       <div
@@ -79,6 +79,10 @@ class ColorBlindOptions extends Component {
                     this.props.setColorBlind(e.target.value, blindSettings[e.target.value] ? blindSettings[e.target.value][0] : null)
                   }}/>
                 <span>{type}</span>
+                <Triangle
+                  className={style.triangle}
+                  fill={type === 'common' ? previewColor : secondRowColor}
+                  />
               </label>
             );
           })}
@@ -87,9 +91,7 @@ class ColorBlindOptions extends Component {
           <div
             className={style.blindTypes}
             style={{
-              backgroundColor: isDark
-                ? chroma(containerBackground).brighten(0.07)
-                : chroma(containerBackground).darken(0.07),
+              backgroundColor: secondRowColor,
             }}>
             {blindSettings[blindness].map((type) => {
               return (
@@ -105,12 +107,48 @@ class ColorBlindOptions extends Component {
                       this.props.setColorBlind(blindness, e.target.value);
                     }}/>
                   <span>{type}</span>
+                  <Triangle
+                    className={style.triangle}
+                    fill={previewColor}
+                    />
                 </label>
               );
             })}
           </div>
         )}
       </div>
+    );
+  }
+}
+
+class Triangle extends Component {
+  static propTypes = {
+    fill: PropTypes.string,
+    className: PropTypes.string,
+  }
+
+  static defaultProps = {
+    fill: '#ffffff',
+  }
+
+  render() {
+    const {
+      fill,
+      className,
+    } = this.props;
+
+    return (
+      <svg
+        className={className}
+        width='6'
+        height='4'
+        viewBox='0 0 6 4'
+        xmlns='http://www.w3.org/2000/svg'>
+        <path
+          fill={fill}
+          d='M3 0l3 4H0'
+          fill-rule='evenodd'/>
+      </svg>
     );
   }
 }
