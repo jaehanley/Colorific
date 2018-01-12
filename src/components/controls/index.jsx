@@ -7,9 +7,7 @@ import {
   swapColors,
 } from 'actions/colors';
 import swapWhite from 'assets/swap-white.svg';
-import swapBlack from 'assets/swap-black.svg';
 import chroma from 'chroma-js';
-import blind from 'color-blind';
 import style from './style.css';
 
 class Controls extends Component {
@@ -19,36 +17,16 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
-    blindness: PropTypes.string.isRequired,
-    setting: PropTypes.string,
   };
 
   render() {
     const {
       background,
       foreground,
-      blindness,
-      setting,
     } = this.props;
 
-    let containerBackground = chroma(background);
-    if (blindness !== 'common') {
-      const modifier = blind[setting];
-      containerBackground = modifier(background);
-    }
-
-    const lums = chroma(containerBackground).luminance();
-    const isDark = lums <= 0.5;
-
     return (
-      <div
-        className={style.container}
-        style={{
-          backgroundColor: isDark
-            ? chroma(containerBackground).brighten(0.5)
-            : chroma(containerBackground).darken(0.5),
-          color: isDark ? '#fff' : '#222',
-        }}>
+      <div className={style.container}>
         <label className={style.inputLabel}>
           <b>Foreground</b>
           <input
@@ -69,7 +47,7 @@ class Controls extends Component {
           <img
             aria-hidden={true}
             alt='swap colors'
-            src={isDark ? swapWhite : swapBlack}/>
+            src={swapWhite}/>
         </button>
         <label className={style.inputLabel}>
           <b>Background</b>
@@ -93,8 +71,6 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
-    blindness: state.colors.blindness,
-    setting: state.colors.setting
   };
 }
 
