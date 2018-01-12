@@ -5,6 +5,7 @@
   "main": "electron-starter.js",
   "homepage": "./",
   "dependencies": {
+    "@redux-offline/redux-offline": "^2.2.1",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
