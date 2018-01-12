@@ -1,0 +1,6 @@
+.chrome {
+  height: 40px;
+  display: block;
+  align-self: flex-start;
+  width: 100%;
+}
