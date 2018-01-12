@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import chroma, { mix } from 'chroma-js';
+import blind from 'color-blind';
 import {
   setForeground,
   setBackground,
   swapColors,
 } from 'actions/colors';
 import swapWhite from 'assets/swap-white.svg';
-import swapBlack from 'assets/swap-black.svg';
-import chroma from 'chroma-js';
-import blind from 'color-blind';
 import style from './style.css';
 
 class Controls extends Component {
@@ -19,7 +18,7 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
-    blindness: PropTypes.string.isRequired,
+    blindness: PropTypes.string,
     setting: PropTypes.string,
   };
 
@@ -32,22 +31,16 @@ class Controls extends Component {
     } = this.props;
 
     let containerBackground = chroma(background);
-    if (blindness !== 'common') {
+    if (blindness && blindness !== 'common') {
       const modifier = blind[setting];
-      containerBackground = modifier(background);
+      containerBackground = modifier(background)
     }
-
-    const lums = chroma(containerBackground).luminance();
-    const isDark = lums <= 0.5;
 
     return (
       <div
         className={style.container}
         style={{
-          backgroundColor: isDark
-            ? chroma(containerBackground).brighten(0.5)
-            : chroma(containerBackground).darken(0.5),
-          color: isDark ? '#fff' : '#222',
+          backgroundColor: mix('#1a1a1a', containerBackground, 0.2),
         }}>
         <label className={style.inputLabel}>
           <b>Foreground</b>
@@ -69,7 +62,7 @@ class Controls extends Component {
           <img
             aria-hidden={true}
             alt='swap colors'
-            src={isDark ? swapWhite : swapBlack}/>
+            src={swapWhite}/>
         </button>
         <label className={style.inputLabel}>
           <b>Background</b>
@@ -94,7 +87,7 @@ function mapStateToProps(state) {
     background: state.colors.background,
     foreground: state.colors.foreground,
     blindness: state.colors.blindness,
-    setting: state.colors.setting
+    setting: state.colors.setting,
   };
 }
 

@@ -10,7 +10,6 @@ import style from  './App.css';
 
 class App extends Component {
   render() {
-    console.log(isElectron);
     return (
       <Provider store={store}>
         <div className={style.app}>
