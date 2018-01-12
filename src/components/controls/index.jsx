@@ -32,11 +32,9 @@ class Controls extends Component {
     } = this.props;
 
     let containerBackground = chroma(background);
-    let containerForeground = chroma(foreground);
     if (blindness !== 'common') {
       const modifier = blind[setting];
       containerBackground = modifier(background);
-      containerForeground = modifier(foreground);
     }
 
     const lums = chroma(containerBackground).luminance();

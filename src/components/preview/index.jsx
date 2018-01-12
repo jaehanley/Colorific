@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import chroma, { contrast } from 'chroma-js';
 import blind from 'color-blind';
-import isElectron from 'utils/isElectron';
 import style from './style.css';
 
 class Preview extends Component {
@@ -29,9 +28,6 @@ class Preview extends Component {
       containerBackground = modifier(background);
       containerForeground = modifier(foreground);
     }
-
-    const lums = chroma(containerBackground).luminance();
-    const isDark = lums <= 0.5;
 
     let ranking;
     const rating = contrast(containerForeground, containerBackground);
@@ -61,16 +57,6 @@ class Preview extends Component {
         <span className={style.ratio}>
           {rating.toFixed(3)}:1
         </span>
-        {isElectron() && (
-          <span
-            className={style.overlay}
-            style={{
-              backgroundColor: isDark
-              ? chroma(containerBackground).darken(0.3)
-              : chroma(containerBackground).brighten(0.3),
-              WebkitAppRegion: 'drag',
-            }} />
-        )}
       </div>
     );
   }

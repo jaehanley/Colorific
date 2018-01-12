@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import chroma, { contrast } from 'chroma-js';
+import chroma from 'chroma-js';
 import blind from 'color-blind';
 import { setColorBlind } from 'actions/colors';
 import style from './style.css';
