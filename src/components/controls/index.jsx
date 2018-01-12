@@ -76,7 +76,7 @@ class Controls extends Component {
         <div
           className={style.container}
           style={{
-            backgroundColor: chroma(containerBackground).darken(3),
+            backgroundColor: chroma(containerBackground).darken(1.5),
           }}>
           <button
             className={style.inputLabel}

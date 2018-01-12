@@ -8,7 +8,7 @@
 
 .colorControls {
   position: fixed;
-  bottom: 92px;
+  bottom: 82px;
 
   &.leftAlgin {
     left: 10px;
