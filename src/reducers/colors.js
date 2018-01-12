@@ -1,12 +1,15 @@
 import {
   SET_BACKGROUND,
+  SET_COLOR_BLIND,
   SET_FOREGROUND,
-  SWAP_COLORS
+  SWAP_COLORS,
 } from 'actions/colors';
 
 const initialState = {
   background: '#FFFFFF',
   foreground: '#000000',
+  blindness: 'common',
+  setting: null,
 };
 
 export default function(state = initialState, action = {}) {
@@ -15,6 +18,12 @@ export default function(state = initialState, action = {}) {
       return {
         ...state,
         background: action.color
+      };
+    case SET_COLOR_BLIND:
+      return {
+        ...state,
+        blindness: action.blindness,
+        setting: action.setting || null,
       };
     case SET_FOREGROUND:
       return {

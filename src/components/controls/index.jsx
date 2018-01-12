@@ -9,6 +9,7 @@ import {
 import swapWhite from 'assets/swap-white.svg';
 import swapBlack from 'assets/swap-black.svg';
 import chroma from 'chroma-js';
+import blind from 'color-blind';
 import style from './style.css';
 
 class Controls extends Component {
@@ -18,15 +19,27 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
+    blindness: PropTypes.string.isRequired,
+    setting: PropTypes.string,
   };
 
   render() {
     const {
       background,
       foreground,
+      blindness,
+      setting,
     } = this.props;
 
-    const lums = chroma(background).luminance();
+    let containerBackground = chroma(background);
+    let containerForeground = chroma(foreground);
+    if (blindness !== 'common') {
+      const modifier = blind[setting];
+      containerBackground = modifier(background);
+      containerForeground = modifier(foreground);
+    }
+
+    const lums = chroma(containerBackground).luminance();
     const isDark = lums <= 0.5;
 
     return (
@@ -34,8 +47,8 @@ class Controls extends Component {
         className={style.container}
         style={{
           backgroundColor: isDark
-            ? chroma(background).brighten(0.5)
-            : chroma(background).darken(0.5),
+            ? chroma(containerBackground).brighten(0.5)
+            : chroma(containerBackground).darken(0.5),
           color: isDark ? '#fff' : '#222',
         }}>
         <label className={style.inputLabel}>
@@ -56,7 +69,8 @@ class Controls extends Component {
           className={style.swapBtn}
           onClick={() => this.props.swapColors()}>
           <img
-            aria-hidden
+            aria-hidden={true}
+            alt='swap colors'
             src={isDark ? swapWhite : swapBlack}/>
         </button>
         <label className={style.inputLabel}>
@@ -81,6 +95,8 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
+    blindness: state.colors.blindness,
+    setting: state.colors.setting
   };
 }
 
