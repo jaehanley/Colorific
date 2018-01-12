@@ -53,7 +53,7 @@ class ColorBlindOptions extends Component {
     const previewColor = containerBackground;
 
     containerBackground = chroma(containerBackground).darken(1);
-    const secondRowColor = chroma(containerBackground).brighten(0.2);
+    const secondRowColor = chroma(containerBackground).brighten(0.5);
 
     const lums = chroma(containerBackground).luminance();
     const isDark = lums <= 0.5;
