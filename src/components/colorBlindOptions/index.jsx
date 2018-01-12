@@ -51,12 +51,10 @@ class ColorBlindOptions extends Component {
       containerBackground = modifier(background)
     }
 
+    containerBackground = chroma(containerBackground).darken(1);
+
     const lums = chroma(containerBackground).luminance();
     const isDark = lums <= 0.5;
-
-    containerBackground = isDark
-      ? chroma(containerBackground).darken(0.15)
-      : chroma(containerBackground).brighten(0.15);
 
     return (
       <div
@@ -87,9 +85,7 @@ class ColorBlindOptions extends Component {
           <div
             className={style.blindTypes}
             style={{
-              backgroundColor: isDark
-                ? chroma(containerBackground).brighten(0.07)
-                : chroma(containerBackground).darken(0.07),
+              backgroundColor: chroma(containerBackground).brighten(0.2),
             }}>
             {blindSettings[blindness].map((type) => {
               return (

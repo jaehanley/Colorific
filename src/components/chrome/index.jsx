@@ -25,17 +25,12 @@ class Chrome extends Component {
       containerBackground = modifier(background);
     }
 
-    const lums = chroma(containerBackground).luminance();
-    const isDark = lums <= 0.5;
-
     return (
       <span
         className={style.chrome}
         style={{
           WebkitAppRegion: 'drag',
-          backgroundColor: isDark
-            ? chroma(containerBackground).darken(0.3)
-            : chroma(containerBackground).brighten(0.3),
+          backgroundColor: chroma(containerBackground).darken(1.5),
         }}/>
     );
   }
