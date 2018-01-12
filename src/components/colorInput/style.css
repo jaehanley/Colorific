@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.colorControls {
+  position: fixed;
+  bottom: 10px;
+
+  &.leftAlgin {
+    left: 10px;
+  }
+
+  &.rightAlign {
+    right: 10px;
+  }
+}

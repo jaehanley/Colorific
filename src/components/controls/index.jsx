@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import chroma from 'chroma-js';
@@ -8,6 +8,7 @@ import {
   setBackground,
   swapColors,
 } from 'actions/colors';
+import ColorInput from 'components/colorInput';
 import swapWhite from 'assets/swap-white.svg';
 import style from './style.css';
 
@@ -22,6 +23,35 @@ class Controls extends Component {
     setting: PropTypes.string,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showForegroundEditor: false,
+      showBackgroundEditor: false,
+    }
+  }
+
+  showForegroundEditor() {
+    this.setState({
+      showForegroundEditor: true,
+      showBackgroundEditor: false,
+    });
+  }
+
+  showBackgroundEditor() {
+    this.setState({
+      showForegroundEditor: false,
+      showBackgroundEditor: true,
+    });
+  }
+
+  hideEditors() {
+    this.setState({
+      showForegroundEditor: false,
+      showBackgroundEditor: false,
+    });
+  }
+
   render() {
     const {
       background,
@@ -30,6 +60,11 @@ class Controls extends Component {
       setting,
     } = this.props;
 
+    const {
+      showForegroundEditor,
+      showBackgroundEditor,
+    } = this.state;
+
     let containerBackground = chroma(background);
     if (blindness && blindness !== 'common') {
       const modifier = blind[setting];
@@ -37,47 +72,64 @@ class Controls extends Component {
     }
 
     return (
-      <div
-        className={style.container}
-        style={{
-          backgroundColor: chroma(containerBackground).darken(3),
-        }}>
-        <label className={style.inputLabel}>
-          <b>Foreground</b>
-          <input
-            type='color'
-            className={style.colorInput}
-            value={chroma(foreground).hex()}
-            onChange={(e) => {
-              this.props.setForeground(chroma(e.target.value).hex())
-            }}/>
-          <span className={style.hexValue}>
-            {chroma(foreground).hex()}
-          </span>
-        </label>
-        <button
-          aria-label='swap colors'
-          className={style.swapBtn}
-          onClick={() => this.props.swapColors()}>
-          <img
-            aria-hidden={true}
-            alt='swap colors'
-            src={swapWhite}/>
-        </button>
-        <label className={style.inputLabel}>
-          <b>Background</b>
-          <input
-            type='color'
-            className={style.colorInput}
-            value={chroma(background).hex()}
-            onChange={(e) => {
-              this.props.setBackground(chroma(e.target.value).hex())
-            }}/>
-          <span className={style.hexValue}>
-            {chroma(background).hex()}
-          </span>
-        </label>
-      </div>
+      <Fragment>
+        <div
+          className={style.container}
+          style={{
+            backgroundColor: chroma(containerBackground).darken(3),
+          }}>
+          <button
+            className={style.inputLabel}
+            onClick={() => this.showForegroundEditor()}>
+            <b>Foreground</b>
+            <div
+              className={style.colorInput}
+              style={{
+                backgroundColor: chroma(foreground).hex(),
+              }}
+              />
+            <span className={style.hexValue}>
+              {chroma(foreground).hex()}
+            </span>
+          </button>
+          <button
+            aria-label='swap colors'
+            className={style.swapBtn}
+            onClick={() => this.props.swapColors()}>
+            <img
+              aria-hidden={true}
+              alt='swap colors'
+              src={swapWhite}/>
+          </button>
+          <button
+            className={style.inputLabel}
+            onClick={() => this.showBackgroundEditor()}>
+            <b>Background</b>
+            <div
+              className={style.colorInput}
+              style={{
+                backgroundColor: chroma(background).hex()
+              }}/>
+            <span className={style.hexValue}>
+              {chroma(background).hex()}
+            </span>
+          </button>
+        </div>
+        {showForegroundEditor && (
+          <ColorInput
+            color={chroma(foreground).hex()}
+            floatLeft
+            onChange={(hex) => this.props.setForeground(chroma(hex).hex())}
+            onClose={() => this.hideEditors()} />
+        )}
+        {showBackgroundEditor && (
+          <ColorInput
+            color={chroma(background).hex()}
+            floatLeft={false}
+            onChange={(hex) => this.props.setBackground(chroma(hex).hex())}
+            onClose={() => this.hideEditors()} />
+        )}
+      </Fragment>
     );
   }
 }

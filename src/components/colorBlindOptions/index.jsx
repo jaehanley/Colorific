@@ -123,7 +123,10 @@ class ColorBlindOptions extends Component {
 
 class Triangle extends Component {
   static propTypes = {
-    fill: PropTypes.string,
+    fill: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
     className: PropTypes.string,
   }
 
@@ -147,7 +150,7 @@ class Triangle extends Component {
         <path
           fill={fill}
           d='M3 0l3 4H0'
-          fill-rule='evenodd'/>
+          fillRule='evenodd'/>
       </svg>
     );
   }
