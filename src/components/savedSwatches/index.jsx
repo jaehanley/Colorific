@@ -111,7 +111,7 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
-    swatches: state.swatches.swatches || [],
+    swatches: state.swatches.swatches ? state.swatches.swatches.reverse() : [],
   };
 }
 
