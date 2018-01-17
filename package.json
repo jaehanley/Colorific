@@ -103,5 +103,15 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "build": {
+    "appId": "com.colorific.electron",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories":{
+      "buildResources": "resources"
+    }
   }
 }
