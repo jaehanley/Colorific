@@ -29,12 +29,19 @@ class SavedSwatches extends Component {
       background,
       swatches,
     } = this.props;
+
+    let disableAdd = false;
+    swatches.forEach((swatch) => {
+      if (swatch.foreground === foreground && swatch.background === background) {
+        disableAdd = true;
+      }
+    });
     return (
       <div className={style.container}>
         <button
           className={style.saveBtn}
           onClick={() => this.props.saveSwatch(foreground, background)}
-          disabled={swatches.includes({foreground, background})}>
+          disabled={disableAdd}>
           <img
             alt='Save Swatch'
             src={addBtn}
