@@ -48,7 +48,7 @@ class SavedSwatches extends Component {
                 swatch={swatch}
                 onClick={() => this.props.setColors(swatch.foreground, swatch.background)}
                 onDelete={() => this.props.deleteSwatch(swatch)}
-                active={{ foreground, background } === swatch}
+                active={foreground === swatch.foreground && background === swatch.background}
                 />
             )
           })}
@@ -76,12 +76,12 @@ class Swatch extends Component {
       swatch,
     } = this.props;
     return (
-      <div className={style.swatchObject}>
+      <div className={[
+          style.swatchObject,
+          active ? style.active : style.inactive
+        ].join(' ')}>
         <button
-          className={[
-            style.swatch,
-            active ? style.active : style.inactive
-          ].join(' ')}
+          className={style.swatch}
           onClick={() => this.props.onClick()}
           disabled={active}
           style={{
@@ -111,7 +111,7 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
-    swatches: state.swatches.swatches ? state.swatches.swatches.reverse() : [],
+    swatches: state.swatches.swatches ? [...state.swatches.swatches].reverse() : [],
   };
 }
 

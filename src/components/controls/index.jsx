@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import chroma from 'chroma-js';
-import blind from 'color-blind';
 import {
   setForeground,
   setBackground,
@@ -19,8 +18,6 @@ class Controls extends Component {
     setForeground: PropTypes.func.isRequired,
     setBackground: PropTypes.func.isRequired,
     swapColors: PropTypes.func.isRequired,
-    blindness: PropTypes.string,
-    setting: PropTypes.string,
   };
 
   constructor(props) {
@@ -56,8 +53,6 @@ class Controls extends Component {
     const {
       background,
       foreground,
-      blindness,
-      setting,
     } = this.props;
 
     const {
@@ -65,19 +60,9 @@ class Controls extends Component {
       showBackgroundEditor,
     } = this.state;
 
-    let containerBackground = chroma(background);
-    if (blindness && blindness !== 'common') {
-      const modifier = blind[setting];
-      containerBackground = modifier(background)
-    }
-
     return (
       <Fragment>
-        <div
-          className={style.container}
-          style={{
-            backgroundColor: chroma(containerBackground).darken(1.5),
-          }}>
+        <div className={style.container}>
           <button
             className={style.inputLabel}
             onClick={() => this.showForegroundEditor()}>
@@ -138,8 +123,6 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     foreground: state.colors.foreground,
-    blindness: state.colors.blindness,
-    setting: state.colors.setting,
   };
 }
 

@@ -12,9 +12,8 @@
   appearance: none;
   background: transparent;
   border: 0 none;
-  width: 30px;
+  width: 50px;
   padding: 0;
-  margin-right: 10px;
 }
 
 .swatchContainer {
@@ -24,6 +23,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  &::after {
+    /* Spacing fix */
+    content: '';
+    width: 15px;
+    height: 100%;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 }
 
 .swatchObject {
@@ -35,13 +44,16 @@
   flex-shrink: 0;
   display: flex;
   overflow: hidden;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 0 -4px #fff;
+
 
   & + .swatchObject {
     margin-left: 15px;
   }
 
-  &:last-of-type {
-    margin-right: 15px;
+  &.active {
+    box-shadow: 0 6px 0 -4px #fff;
   }
 }
 
