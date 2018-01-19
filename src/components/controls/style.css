@@ -3,7 +3,7 @@
   padding: 5px 15px 10px;
   justify-content: space-around;
   color: #fff;
-  background-color: #111;
+  background-color: color(#111 alpha(-7%));
 }
 
 .swapBtn {

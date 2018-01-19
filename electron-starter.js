@@ -18,7 +18,8 @@ function createWindow () {
     height: 600,
     titleBarStyle: 'hiddenInset',
     fullscreen: false,
-    icon: path.join(__dirname, 'assets/mac/icon.icns')
+    icon: path.join(__dirname, 'assets/mac/icon.icns'),
+    transparent: true,
   });
 
   // and load the index.html of the app.
