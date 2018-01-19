@@ -3,4 +3,8 @@
   display: block;
   align-self: flex-start;
   width: 100%;
+
+  &.inactive {
+    opacity: 0.8;
+  }
 }
