@@ -92,12 +92,12 @@ class Swatch extends Component {
           onClick={() => this.props.onClick()}
           disabled={active}
           style={{
-            backgroundColor: swatch.background
+            backgroundColor: swatch.foreground
           }}>
           <div
             className={style.foreground}
             style={{
-              borderBottomColor: swatch.foreground
+              borderBottomColor: swatch.background
             }}
             />
         </button>
