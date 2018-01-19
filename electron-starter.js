@@ -16,6 +16,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 340,
     height: 600,
+    minWidth: 300,
+    minHeight: 460,
+    maxWidth: 430,
+    maxHeight: 800,
     titleBarStyle: 'hiddenInset',
     fullscreen: false,
     icon: path.join(__dirname, 'assets/mac/icon.icns'),
