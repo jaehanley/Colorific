@@ -61,7 +61,7 @@ class ColorBlindOptions extends Component {
     return (
       <div
         style={{
-          color: isDark ? '#fff' : '#222',
+          color: isDark ? '#fff' : '#000',
           backgroundColor: containerBackground,
         }}>
         <div className={style.blindTypes}>
@@ -97,7 +97,10 @@ class ColorBlindOptions extends Component {
               return (
                 <label
                   key={type}
-                  className={style.blindOption}>
+                  className={style.blindOption}
+                  style={{
+                    color: chroma(secondRowColor).luminance() <= 0.5 ? '#fff' : '#000'
+                  }}>
                   <input
                     type='radio'
                     name='blind_setting'

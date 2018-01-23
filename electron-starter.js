@@ -24,6 +24,7 @@ function createWindow () {
     fullscreen: false,
     icon: path.join(__dirname, 'assets/mac/icon.icns'),
     transparent: true,
+    hasShadow: true,
   });
 
   // and load the index.html of the app.
