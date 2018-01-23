@@ -12,12 +12,44 @@ class Chrome extends Component {
     setting: PropTypes.string,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeWindow: document.hasFocus(),
+    };
+    this.setVisibility = this.setVisibility.bind(this);
+  }
+
+  componentDidMount() {
+    ['focus', 'blur'].forEach((method) => {
+      window.addEventListener(method, this.setVisibility);
+    });
+  }
+
+  componentWillUnmount() {
+    ['focus', 'blur'].forEach((method) => {
+      window.removeEventListener(method, this.setVisibility);
+    })
+  }
+
+  setVisibility() {
+    const { activeWindow } = this.state;
+    const currentVisibility = document.hasFocus();
+    if (activeWindow !== currentVisibility) {
+      this.setState({
+        activeWindow: currentVisibility,
+      });
+    }
+  }
+
   render() {
     const {
       background,
       blindness,
       setting,
     } = this.props;
+
+    const { activeWindow } = this.state;
 
     let containerBackground = chroma(background);
     if (blindness !== 'common') {
@@ -27,7 +59,10 @@ class Chrome extends Component {
 
     return (
       <span
-        className={style.chrome}
+        className={[
+          style.chrome,
+          !activeWindow ? style.inactive : undefined
+        ].join(' ')}
         style={{
           WebkitAppRegion: 'drag',
           backgroundColor: chroma(containerBackground).darken(1.5),

@@ -3,7 +3,7 @@
   padding: 5px 15px 10px;
   justify-content: space-around;
   color: #fff;
-  background-color: #1a1a1a;
+  background-color: color(#000 alpha(-10%));
 }
 
 .swapBtn {
@@ -39,6 +39,7 @@
   width: 100%;
   height: 20px;
   border-radius: 5px;
+  border: solid 2px rgba(255,255,255,0.5);
 }
 
 .hexValue {

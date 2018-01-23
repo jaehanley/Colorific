@@ -5,6 +5,7 @@ import Preview from 'components/preview';
 import Controls from 'components/controls';
 import Chrome from 'components/chrome';
 import ColorBlindOptions from 'components/colorBlindOptions';
+import SavedSwatches from 'components/savedSwatches';
 import style from  './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Chrome />
           <ColorBlindOptions />
           <Preview />
+          <SavedSwatches />
           <Controls />
         </div>
       </Provider>
