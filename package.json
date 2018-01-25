@@ -121,7 +121,8 @@
       "category": "public.app-category.utilities"
     },
     "files": [
-      "build/**/*",
+      "**/*",
+      "build/*",
       "node_modules/**/*",
       "package.json"
     ],
