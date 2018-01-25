@@ -40,7 +40,7 @@ class Preview extends Component {
       explainer = 'These colors compensates for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/40 vision';
     } else if (rating >= 3) {
       ranking = 'AA Large';
-      explainer = 'These colors reach the minimum contrast sensitivity for individuals with 20/40 vision, defined by ISO-9241-3 and ANSI/HFS 100-1988';
+      explainer = 'These colors reach the minimum contrast sensitivity requirements for individuals with 20/40 vision';
     } else {
       ranking = 'Fail';
       explainer = 'These colors fail to reach the minium requirements for contrast sensitivity';
