@@ -34,10 +34,10 @@ class Preview extends Component {
 
     if (rating >= 7) {
       ranking = 'AAA';
-      explainer = 'These colors compensates for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/80 vision.';
+      explainer = 'These colors compensate for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/80 vision.';
     } else if (rating >= 4.5) {
       ranking = 'AA';
-      explainer = 'These colors compensates for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/40 vision';
+      explainer = 'These colors compensate for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/40 vision';
     } else if (rating >= 3) {
       ranking = 'AA Large';
       explainer = 'These colors reach the minimum contrast sensitivity requirements for individuals with 20/40 vision';
