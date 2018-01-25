@@ -22,3 +22,11 @@
   margin-top: 5px;
   letter-spacing: 0.1px;
 }
+
+.explainer {
+  padding: 10px 20px;
+  background-color: #111;
+  color: #eee;
+  font-size: 13px;
+  line-height: 20px;
+}

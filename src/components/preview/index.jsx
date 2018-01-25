@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import chroma, { contrast } from 'chroma-js';
@@ -29,35 +29,46 @@ class Preview extends Component {
       containerForeground = modifier(foreground);
     }
 
-    let ranking;
+    let ranking, explainer;
     const rating = contrast(containerForeground, containerBackground);
 
     if (rating >= 7) {
       ranking = 'AAA';
+      explainer = 'These colors compensates for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/80 vision.';
     } else if (rating >= 4.5) {
       ranking = 'AA';
+      explainer = 'These colors compensates for the loss in contrast sensitivity usually experienced by users with vision loss equivalent to approximately 20/40 vision';
     } else if (rating >= 3) {
       ranking = 'AA Large';
+      explainer = 'These colors reach the minimum contrast sensitivity for individuals with 20/40 vision, defined by ISO-9241-3 and ANSI/HFS 100-1988';
     } else {
       ranking = 'Fail';
+      explainer = 'These colors fail to reach the minium requirements for contrast sensitivity';
     }
 
     return (
-      <div
-        className={style.container}
-        style={{
-          backgroundColor: containerBackground,
-          color: containerForeground,
-        }}>
-        <b
-          aria-label="accessibility rating"
-          className={style.rating}>
-          {ranking}
-        </b>
-        <span className={style.ratio}>
-          {rating.toFixed(3)}:1
-        </span>
-      </div>
+      <Fragment>
+        <div
+          className={style.container}
+          style={{
+            backgroundColor: containerBackground,
+            color: containerForeground,
+          }}>
+          <b
+            aria-label='accessibility rating'
+            className={style.rating}>
+            {ranking}
+          </b>
+          <span
+            aria-label='contrast ratio'
+            className={style.ratio}>
+            {rating.toFixed(3)}:1
+          </span>
+        </div>
+        <div className={style.explainer}>
+          {explainer}
+        </div>
+      </Fragment>
     );
   }
 }
