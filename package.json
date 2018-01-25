@@ -120,12 +120,6 @@
     "mac": {
       "category": "public.app-category.utilities"
     },
-    "files": [
-      "**/*",
-      "build/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
     "directories": {
       "buildResources": "assets"
     }
