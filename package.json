@@ -1,8 +1,15 @@
 {
   "name": "colorific",
-  "version": "0.1.0",
+  "productName": "colorific",
+  "version": "0.2.0",
+  "description": "A color contrast and swatch managment tool",
+  "author": {
+    "name": "Darrell Hanley",
+    "email": "contact@darrellhanley.com",
+    "url": "https://www.darrellhanley.com"
+  },
+  "license": "(MIT OR Apache-2.0)",
   "private": true,
-  "main": "electron-starter.js",
   "homepage": "./",
   "dependencies": {
     "@redux-offline/redux-offline": "^2.2.1",
@@ -57,10 +64,14 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron": "electron .",
-    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron ."
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron-pack": "electron-builder --dir",
+    "electron-dist": "electron-builder",
+    "postinstall": "install-app-deps"
   },
   "devDependencies": {
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "electron-builder": "^19.55.2"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -105,13 +116,12 @@
     "extends": "react-app"
   },
   "build": {
-    "appId": "com.colorific.electron",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories":{
-      "buildResources": "resources"
+    "appId": "com.colorific",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "directories": {
+      "buildResources": "assets"
     }
   }
 }
