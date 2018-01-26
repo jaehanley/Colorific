@@ -25,10 +25,12 @@
 .swatchContainer {
   flex-grow: 1;
   flex-shrink: 1;
-  overflow: scroll;
+  overflow: hidden;
+  overflow-x: scroll;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-bottom: 5px;
 
   &::after {
     /* Spacing fix */
@@ -38,6 +40,14 @@
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
+  }
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(92, 92, 92);
   }
 }
 
