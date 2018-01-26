@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -21,6 +22,13 @@ class SavedSwatches extends Component {
     saveSwatch: PropTypes.func.isRequired,
     setColors: PropTypes.func.isRequired,
     swatches: PropTypes.array.isRequired,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // A new swatch has been added
+    if (nextProps.swatches.length > this.props.swatches.length) {
+      findDOMNode(this.swatchContainer).scrollLeft = 0;
+    }
   }
 
   render() {
@@ -49,7 +57,9 @@ class SavedSwatches extends Component {
             src={addBtn}
             />
         </button>
-        <div className={style.swatchContainer}>
+        <div
+          className={style.swatchContainer}
+          ref={(c) => this.swatchContainer = c}>
           {swatches.map((swatch) => {
             return (
               <Swatch
