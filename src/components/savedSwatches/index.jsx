@@ -39,10 +39,12 @@ class SavedSwatches extends Component {
     return (
       <div className={style.container}>
         <button
+          title='Save Swatch'
           className={style.saveBtn}
           onClick={() => this.props.saveSwatch(foreground, background)}
           disabled={disableAdd}>
           <img
+            aria-hidden
             alt='Save Swatch'
             src={addBtn}
             />
@@ -88,6 +90,7 @@ class Swatch extends Component {
           active ? style.active : style.inactive
         ].join(' ')}>
         <button
+          tooltip='Select Swatch'
           className={style.swatch}
           onClick={() => this.props.onClick()}
           disabled={active}
@@ -102,8 +105,11 @@ class Swatch extends Component {
             />
         </button>
         <div className={style.trash}>
-            <button onClick={() => this.props.onDelete()}>
+            <button
+              tooltip='Delete Swatch'
+              onClick={() => this.props.onDelete()}>
               <img
+                aria-hidden
                 alt='Delete Swatch'
                 src={trash}
                 />
