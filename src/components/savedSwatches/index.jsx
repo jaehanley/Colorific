@@ -39,15 +39,21 @@ class SavedSwatches extends Component {
     } = this.props;
 
     let disableAdd = false;
+    let swatchMsg = 'Save swatch';
+    if (swatches.length >= 500) {
+      swatchMsg = 'Maximum swatches saved';
+      disableAdd = true;
+    }
     swatches.forEach((swatch) => {
       if (swatch.foreground === foreground && swatch.background === background) {
         disableAdd = true;
+        swatchMsg = 'Swatch already saved';
       }
     });
     return (
       <div className={style.container}>
         <button
-          title='Save Swatch'
+          title={swatchMsg}
           className={style.saveBtn}
           onClick={() => this.props.saveSwatch(foreground, background)}
           disabled={disableAdd}>
@@ -100,7 +106,7 @@ class Swatch extends Component {
           active ? style.active : style.inactive
         ].join(' ')}>
         <button
-          tooltip='Select Swatch'
+          title='Select Swatch'
           className={style.swatch}
           onClick={() => this.props.onClick()}
           disabled={active}
@@ -116,7 +122,7 @@ class Swatch extends Component {
         </button>
         <div className={style.trash}>
             <button
-              tooltip='Delete Swatch'
+              title='Delete Swatch'
               onClick={() => this.props.onDelete()}>
               <img
                 aria-hidden
