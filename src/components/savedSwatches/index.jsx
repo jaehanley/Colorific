@@ -63,6 +63,13 @@ class SavedSwatches extends Component {
             src={addBtn}
             />
         </button>
+        <a
+          role='button'
+          href='#foreground-btn'
+          className={style.skipBtns}
+          >
+          Skip Swatches
+        </a>
         <div
           className={style.swatchContainer}
           ref={(c) => this.swatchContainer = c}>

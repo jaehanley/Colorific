@@ -60,9 +60,11 @@ class Preview extends Component {
             {ranking}
           </b>
           <span
-            aria-label='contrast ratio'
+            aria-label={`contrast ratio: ${rating.toFixed(3)} to 1`}
             className={style.ratio}>
-            {rating.toFixed(3)}:1
+            <span aria-hidden>
+              {rating.toFixed(3)}:1
+            </span>
           </span>
         </div>
         <div className={style.explainer}>
