@@ -17,7 +17,7 @@ function createWindow () {
     width: 340,
     height: 600,
     minWidth: 300,
-    minHeight: 460,
+    minHeight: 520,
     maxWidth: 430,
     maxHeight: 800,
     titleBarStyle: 'hiddenInset',

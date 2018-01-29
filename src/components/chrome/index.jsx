@@ -65,7 +65,9 @@ class Chrome extends Component {
         ].join(' ')}
         style={{
           WebkitAppRegion: 'drag',
-          backgroundColor: chroma(containerBackground).darken(1.5),
+          background: `linear-gradient(to bottom, ${chroma(containerBackground).darken(1.3)}, ${chroma(containerBackground).darken(1.5)})`,
+          borderBottomColor: chroma(containerBackground).darken(1.7),
+          borderTopColor: chroma(containerBackground).darken(1.1),
         }}/>
     );
   }

@@ -64,7 +64,18 @@ class ColorBlindOptions extends Component {
           color: isDark ? '#fff' : '#000',
           backgroundColor: containerBackground,
         }}>
-        <div className={style.blindTypes}>
+        <div
+          arial-labelledby='color-perception'
+          role='group'
+          className={style.blindTypes}
+          >
+          <b
+            className={style.blindLabel}
+            id='color-perception'
+            role='heading'
+            >
+            Color Perception
+          </b>
           {blindTypes.map((type) => {
             return (
               <label
@@ -89,18 +100,26 @@ class ColorBlindOptions extends Component {
         </div>
         {blindSettings[blindness] && (
           <div
+            aria-labelledby='blindness-perception'
+            role='group'
             className={style.blindTypes}
             style={{
               backgroundColor: secondRowColor,
+              color: chroma(secondRowColor).luminance() <= 0.5 ? '#fff' : '#000'
             }}>
+            <b
+              className={style.blindLabel}
+              id='blindness-perception'
+              role='heading'
+              >
+              Blindness
+            </b>
             {blindSettings[blindness].map((type) => {
               return (
                 <label
                   key={type}
                   className={style.blindOption}
-                  style={{
-                    color: chroma(secondRowColor).luminance() <= 0.5 ? '#fff' : '#000'
-                  }}>
+                  >
                   <input
                     type='radio'
                     name='blind_setting'

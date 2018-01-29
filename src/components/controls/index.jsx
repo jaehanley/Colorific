@@ -64,6 +64,7 @@ class Controls extends Component {
       <Fragment>
         <div className={style.container}>
           <button
+            id='foreground-btn'
             className={style.inputLabel}
             onClick={() => this.showForegroundEditor()}>
             <b>Foreground</b>
@@ -87,6 +88,7 @@ class Controls extends Component {
               src={swapWhite}/>
           </button>
           <button
+            id='background-btn'
             className={style.inputLabel}
             onClick={() => this.showBackgroundEditor()}>
             <b>Background</b>
