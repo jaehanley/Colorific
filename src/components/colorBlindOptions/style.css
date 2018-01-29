@@ -19,11 +19,13 @@
   padding-top: 10px;
   opacity: 0.9;
   font-weight: 500;
+  text-align: left;
+  letter-spacing: 0.5px;
 }
 
 .blindOption {
   flex-grow: 1;
-  flex-shrink: 1;
+  flex-shrink: 1f;
   font-size: 12px;
   line-height: 15px;
   height: 35px;

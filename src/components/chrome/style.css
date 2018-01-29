@@ -4,6 +4,8 @@
   align-self: flex-start;
   width: 100%;
   opacity: 0.8;
+  border-top: solid 2px;
+  border-bottom: solid 1px;
 
   &.inactive {
     opacity: 0.5;
