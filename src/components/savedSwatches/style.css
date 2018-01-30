@@ -41,15 +41,6 @@
     flex-grow: 0;
     flex-shrink: 0;
   }
-
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgb(92, 92, 92);
-    border-radius: 3px;
-  }
 }
 
 .swatchObject {
