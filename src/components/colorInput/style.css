@@ -9,6 +9,10 @@
 .colorControls {
   position: fixed;
   bottom: 82px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
+  display: flex;
+  flex-direction: column;
 
   &.leftAlgin {
     left: 10px;
@@ -17,4 +21,21 @@
   &.rightAlign {
     right: 10px;
   }
+
+  & :global(.chrome-picker) {
+    box-shadow: none !important;
+  }
+}
+
+.doneBtn {
+  appearance: none;
+  border: 0 none;
+  padding: 0;
+  margin-top: 10px;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  color: #2788F6;
+  margin: 10px 0;
 }
