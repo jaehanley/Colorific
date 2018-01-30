@@ -22,6 +22,7 @@
   background: transparent;
   border: 0 none;
   color: inherit;
+  width: 90px;
 
   & b {
     font-weight: 600;
