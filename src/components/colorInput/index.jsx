@@ -32,17 +32,36 @@ export default class ColorInput extends Component {
   handleKeyPress(e) {
     const { color } = this.props;
     if (e.key) {
+      console.log(e);
       const key = e.key.toLowerCase();
-      if (key === 'escape') {
+      const { shiftKey } = e;
+      if (key === 'escape' || key === 'enter') {
+        e.preventDefault();
         this.props.onClose();
       } else if (key === 'arrowup') {
+        e.preventDefault();
         this.props.onChange(chroma(color).brighten(0.2).hex());
       } else if (key === 'arrowdown') {
+        e.preventDefault();
         this.props.onChange(chroma(color).darken(0.2).hex());
       } else if (key === 'arrowleft') {
-        this.props.onChange(chroma(color).desaturate(0.2).hex());
+        e.preventDefault();
+        if (shiftKey) {
+          const hcl = chroma(color).hcl();
+          const newHue = hcl[0] - 10 + (hcl[0] - 10 < 0 ? 360 : 0);
+          this.props.onChange(chroma(newHue, hcl[1], hcl[2], 'hcl').hex());
+        } else {
+          this.props.onChange(chroma(color).desaturate(0.2).hex());
+        }
       } else if (key === 'arrowright') {
-        this.props.onChange(chroma(color).saturate(0.2).hex());
+        e.preventDefault();
+        if (shiftKey) {
+          const hcl = chroma(color).hcl();
+          const newHue = hcl[0] + 10 - (hcl[0] + 10 > 360 ? 360 : 0);
+          this.props.onChange(chroma(newHue, hcl[1], hcl[2], 'hcl').hex())
+        } else {
+          this.props.onChange(chroma(color).saturate(0.2).hex());
+        }
       }
     }
   }
