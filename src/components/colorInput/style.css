@@ -13,6 +13,8 @@
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
   display: flex;
   flex-direction: column;
+  border-radius: 2px;
+  overflow: hidden;
 
   &.leftAlgin {
     left: 10px;
