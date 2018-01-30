@@ -39,6 +39,10 @@ export default class ColorInput extends Component {
         this.props.onChange(chroma(color).brighten(0.2).hex());
       } else if (key === 'arrowdown') {
         this.props.onChange(chroma(color).darken(0.2).hex());
+      } else if (key === 'arrowleft') {
+        this.props.onChange(chroma(color).desaturate(0.2).hex());
+      } else if (key === 'arrowright') {
+        this.props.onChange(chroma(color).saturate(0.2).hex());
       }
     }
   }
