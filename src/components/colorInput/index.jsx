@@ -34,7 +34,8 @@ export default class ColorInput extends Component {
     if (e.key) {
       console.log(e);
       const key = e.key.toLowerCase();
-      const { shiftKey } = e;
+      const { shiftKey, target } = e;
+      const targetTag = target.tagName .toLowerCase();
       if (key === 'escape' || key === 'enter') {
         e.preventDefault();
         this.props.onClose();
@@ -44,7 +45,7 @@ export default class ColorInput extends Component {
       } else if (key === 'arrowdown') {
         e.preventDefault();
         this.props.onChange(chroma(color).darken(0.2).hex());
-      } else if (key === 'arrowleft') {
+      } else if (key === 'arrowleft' && targetTag !== 'input') {
         e.preventDefault();
         if (shiftKey) {
           const hcl = chroma(color).hcl();
@@ -53,7 +54,7 @@ export default class ColorInput extends Component {
         } else {
           this.props.onChange(chroma(color).desaturate(0.2).hex());
         }
-      } else if (key === 'arrowright') {
+      } else if (key === 'arrowright' && targetTag !== 'input') {
         e.preventDefault();
         if (shiftKey) {
           const hcl = chroma(color).hcl();
