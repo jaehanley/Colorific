@@ -35,7 +35,7 @@ export default class ColorInput extends Component {
       console.log(e);
       const key = e.key.toLowerCase();
       const { shiftKey, target } = e;
-      const targetTag = target.tagName .toLowerCase();
+      const targetTag = target.tagName.toLowerCase();
       if (key === 'escape' || key === 'enter') {
         e.preventDefault();
         this.props.onClose();
