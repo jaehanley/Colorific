@@ -30,3 +30,10 @@
   font-size: 13px;
   line-height: 20px;
 }
+
+.rating,
+.ratio,
+.explainer {
+  user-select: none;
+  cursor: default;
+}

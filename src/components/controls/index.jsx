@@ -64,17 +64,21 @@ class Controls extends Component {
       <Fragment>
         <div className={style.container}>
           <button
+            aria-label={`foreground color: ${chroma(foreground).name()}`}
             id='foreground-btn'
             className={style.inputLabel}
             onClick={() => this.showForegroundEditor()}>
-            <b>Foreground</b>
+            <b aria-hidden>Foreground</b>
             <div
+              aria-hidden
               className={style.colorInput}
               style={{
                 backgroundColor: chroma(foreground).hex(),
               }}
               />
-            <span className={style.hexValue}>
+            <span
+              aria-hidden
+              className={style.hexValue}>
               {chroma(foreground).hex()}
             </span>
           </button>
@@ -88,16 +92,20 @@ class Controls extends Component {
               src={swapWhite}/>
           </button>
           <button
+            aria-label={`background color: ${chroma(background).name()}`}
             id='background-btn'
             className={style.inputLabel}
             onClick={() => this.showBackgroundEditor()}>
-            <b>Background</b>
+            <b aria-hidden>Background</b>
             <div
+              aria-hidden
               className={style.colorInput}
               style={{
                 backgroundColor: chroma(background).hex()
               }}/>
-            <span className={style.hexValue}>
+            <span
+              aria-hidden
+              className={style.hexValue}>
               {chroma(background).hex()}
             </span>
           </button>
