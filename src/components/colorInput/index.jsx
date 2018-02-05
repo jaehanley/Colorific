@@ -32,7 +32,6 @@ export default class ColorInput extends Component {
   handleKeyPress(e) {
     const { color } = this.props;
     if (e.key) {
-      console.log(e);
       const key = e.key.toLowerCase();
       const { shiftKey, target } = e;
       const targetTag = target.tagName.toLowerCase();
