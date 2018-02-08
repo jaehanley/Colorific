@@ -22,6 +22,7 @@ class SavedSwatches extends Component {
     saveSwatch: PropTypes.func.isRequired,
     setColors: PropTypes.func.isRequired,
     swatches: PropTypes.array.isRequired,
+    pickerShown: PropTypes.bool.isRequired,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +37,7 @@ class SavedSwatches extends Component {
       foreground,
       background,
       swatches,
+      pickerShown,
     } = this.props;
 
     let disableAdd = false;
@@ -51,12 +53,16 @@ class SavedSwatches extends Component {
       }
     });
     return (
-      <div className={style.container}>
+      <div
+        aria-hidden={pickerShown}
+        disabled={pickerShown}
+        className={style.container}>
         <button
           title={swatchMsg}
           className={style.saveBtn}
           onClick={() => this.props.saveSwatch(foreground, background)}
-          disabled={disableAdd}>
+          disabled={disableAdd}
+          tabIndex={pickerShown ? -1 : undefined}>
           <img
             aria-hidden
             alt='Save Swatch'
@@ -64,6 +70,9 @@ class SavedSwatches extends Component {
             />
         </button>
         <a
+          tabIndex={pickerShown ? -1 : undefined}
+          aria-hidden={pickerShown}
+          disabled={pickerShown}
           role='button'
           href='#foreground-btn'
           className={style.skipBtns}
@@ -81,6 +90,7 @@ class SavedSwatches extends Component {
                 onClick={() => this.props.setColors(swatch.foreground, swatch.background)}
                 onDelete={() => this.props.deleteSwatch(swatch)}
                 active={foreground === swatch.foreground && background === swatch.background}
+                disabled={pickerShown}
                 />
             )
           })}
@@ -96,16 +106,19 @@ class Swatch extends Component {
     swatch: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
     active: false,
+    disabled: false,
   }
 
   render() {
     const {
       active,
       swatch,
+      disabled
     } = this.props;
     return (
       <div className={[
@@ -116,7 +129,7 @@ class Swatch extends Component {
           title='Select Swatch'
           className={style.swatch}
           onClick={() => this.props.onClick()}
-          disabled={active}
+          disabled={active || disabled}
           style={{
             backgroundColor: swatch.foreground
           }}>
@@ -130,7 +143,8 @@ class Swatch extends Component {
         <div className={style.trash}>
             <button
               title='Delete Swatch'
-              onClick={() => this.props.onDelete()}>
+              onClick={() => this.props.onDelete()}
+              disabled={disabled}>
               <img
                 aria-hidden
                 alt='Delete Swatch'
@@ -148,6 +162,7 @@ function mapStateToProps(state) {
     background: state.colors.background,
     foreground: state.colors.foreground,
     swatches: state.swatches.swatches ? [...state.swatches.swatches].reverse() : [],
+    pickerShown: state.colors.controlsShown || false,
   };
 }
 
