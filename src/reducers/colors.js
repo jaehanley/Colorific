@@ -3,12 +3,14 @@ import {
   SET_COLOR_BLIND,
   SET_FOREGROUND,
   SWAP_COLORS,
+  SET_CONTROLS_SHOWN,
 } from 'actions/colors';
 
 const initialState = {
   background: '#FFFFFF',
   foreground: '#000000',
   blindness: 'common',
+  controlsShown: false,
   setting: null,
 };
 
@@ -17,7 +19,7 @@ export default function(state = initialState, action = {}) {
     case SET_BACKGROUND:
       return {
         ...state,
-        background: action.color
+        background: action.color,
       };
     case SET_COLOR_BLIND:
       return {
@@ -28,7 +30,7 @@ export default function(state = initialState, action = {}) {
     case SET_FOREGROUND:
       return {
         ...state,
-        foreground: action.color
+        foreground: action.color,
       };
     case SWAP_COLORS:
       return {
@@ -36,6 +38,11 @@ export default function(state = initialState, action = {}) {
         background: state.foreground,
         foreground: state.background,
       };
+    case SET_CONTROLS_SHOWN:
+      return {
+        ...state,
+        controlsShown: action.shown,
+      }
     default:
       return state;
   }

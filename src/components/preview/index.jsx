@@ -11,6 +11,7 @@ class Preview extends Component {
     foreground: PropTypes.string.isRequired,
     blindness: PropTypes.string.isRequired,
     setting: PropTypes.string,
+    pickerShown: PropTypes.bool.isRequired,
   }
 
   render() {
@@ -19,6 +20,7 @@ class Preview extends Component {
       blindness,
       foreground,
       setting,
+      pickerShown,
     } = this.props;
 
     let containerBackground = chroma(background);
@@ -49,6 +51,8 @@ class Preview extends Component {
     return (
       <Fragment>
         <div
+          aria-hidden={pickerShown}
+          disabled={pickerShown}
           className={style.container}
           style={{
             backgroundColor: containerBackground,
@@ -67,7 +71,10 @@ class Preview extends Component {
             </span>
           </span>
         </div>
-        <div className={style.explainer}>
+        <div
+          aria-hidden={pickerShown}
+          disabled={pickerShown}
+          className={style.explainer}>
           {explainer}
         </div>
       </Fragment>
@@ -80,7 +87,8 @@ function mapStateToProps(state) {
     background: state.colors.background,
     foreground: state.colors.foreground,
     blindness: state.colors.blindness,
-    setting: state.colors.setting
+    setting: state.colors.setting,
+    pickerShown: state.colors.controlsShown || false,
   };
 }
 

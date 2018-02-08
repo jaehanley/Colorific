@@ -36,13 +36,15 @@ class ColorBlindOptions extends Component {
     blindness: PropTypes.string.isRequired,
     setColorBlind: PropTypes.func.isRequired,
     setting: PropTypes.string,
+    pickerShown: PropTypes.bool.isRequired,
   }
 
   render() {
     const {
       blindness,
       setting,
-      background
+      background,
+      pickerShown
     } = this.props;
 
     let containerBackground = chroma(background);
@@ -60,6 +62,9 @@ class ColorBlindOptions extends Component {
 
     return (
       <div
+        aria-hidden={pickerShown}
+        disabled={pickerShown}
+        tabIndex={pickerShown ? -1 : undefined}
         style={{
           color: isDark ? '#fff' : '#000',
           backgroundColor: containerBackground,
@@ -82,6 +87,7 @@ class ColorBlindOptions extends Component {
                 key={type}
                 className={style.blindOption}>
                 <input
+                  disabled={pickerShown}
                   type='radio'
                   name='blind_type'
                   value={type}
@@ -121,6 +127,7 @@ class ColorBlindOptions extends Component {
                   className={style.blindOption}
                   >
                   <input
+                    disabled={pickerShown}
                     type='radio'
                     name='blind_setting'
                     value={type}
@@ -182,7 +189,8 @@ function mapStateToProps(state) {
   return {
     background: state.colors.background,
     blindness: state.colors.blindness,
-    setting: state.colors.setting
+    setting: state.colors.setting,
+    pickerShown: state.colors.controlsShown || false,
   }
 }
 
