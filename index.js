@@ -6,6 +6,26 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path');
 const url = require('url');
+const ghReleases = require('electron-gh-releases');
+
+const updaterOptions = {
+  repo: 'darrellhanley/Colorific',
+  currentVersion: app.getVersion(),
+}
+
+const updater = new ghReleases(updaterOptions);
+
+updater.check((err, status) => {
+  if (!err && status) {
+    updater.download()
+  }
+});
+
+updater.on('update-downloaded', (info) => {
+  updater.install()
+});
+
+updater.autoUpdater;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

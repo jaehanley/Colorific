@@ -1,7 +1,7 @@
 {
   "name": "colorific",
   "productName": "colorific",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A color contrast and swatch managment tool",
   "author": {
     "name": "Darrell Hanley",
@@ -26,6 +26,7 @@
     "color-blind": "^0.1.1",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
+    "electron-gh-releases": "^2.0.4",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.0.1",
     "eslint-loader": "1.9.0",
