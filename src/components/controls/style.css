@@ -28,7 +28,7 @@
     outline: 0 none;
 
     & .colorInput {
-      box-shadow: 0 0 0 3px #bbb;
+      box-shadow: 0 0 0 3px #fff;
     }
   }
 
