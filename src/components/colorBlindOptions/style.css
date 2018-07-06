@@ -1,10 +1,18 @@
 .blindnessOptionsContainer {
   &.lightText {
     color: #fff;
+
+    & .blindOption input:focus {
+      background-color: rgba(255,255,255,0.1);
+    }
   }
   
   &.darkText {
     color: #000;
+
+    & .blindOption input:focus {
+      background-color: rgba(0,0,0,0.1);
+    }
   }
 }
 
@@ -70,6 +78,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    height: calc(100% - 3px);
     appearance: none;
     background: transparent;
     border: 0 none;
@@ -89,6 +98,10 @@
       & + span {
         opacity: 1;
       }
+    }
+
+    &:focus {
+      outline: 0 none;
     }
   }
 }
