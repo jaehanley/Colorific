@@ -86,7 +86,6 @@
     &:checked {
       & + span {
         opacity: 1;
-        font-weight: 600;
       }
 
       & ~ .triangle {
