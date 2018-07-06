@@ -155,6 +155,7 @@
   font-size: 14px;
 
   &:focus {
+    outline: 0 none;
     bottom: 80px;
     opacity: 1;
   }
