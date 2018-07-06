@@ -10,6 +10,12 @@
   appearance: none;
   background: transparent;
   border: 0 none;
+  border-radius: 5px;
+
+  &:focus {
+    outline: 0 none;
+    background-color: rgba(255,255,255,0.2);
+  }
 }
 
 .inputLabel {
