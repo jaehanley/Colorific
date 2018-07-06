@@ -65,10 +65,8 @@ class ColorBlindOptions extends Component {
         aria-hidden={pickerShown}
         disabled={pickerShown}
         tabIndex={pickerShown ? -1 : undefined}
-        style={{
-          color: isDark ? '#fff' : '#000',
-          backgroundColor: containerBackground,
-        }}>
+        className={`${style.blindnessOptionsContainer} ${isDark ? style.lightText : style.darkText}`}
+        style={{ backgroundColor: containerBackground }}>
         <div
           arial-labelledby='color-perception'
           role='group'
@@ -108,11 +106,8 @@ class ColorBlindOptions extends Component {
           <div
             aria-labelledby='blindness-perception'
             role='group'
-            className={style.blindTypes}
-            style={{
-              backgroundColor: secondRowColor,
-              color: chroma(secondRowColor).luminance() <= 0.5 ? '#fff' : '#000'
-            }}>
+            className={`${style.blindTypes} ${chroma(secondRowColor).luminance() <= 0.5 ? style.lightText : style.darkText}`}
+            style={{ backgroundColor: secondRowColor }}>
             <b
               className={style.blindLabel}
               id='blindness-perception'

@@ -20,6 +20,11 @@
   &:disabled {
     opacity: 0.4;
   }
+
+  &:focus {
+    outline: 0 none;
+    background-color: rgba(255,255,255,0.2);
+  }
 }
 
 .swatchContainer {
@@ -111,6 +116,21 @@
     bottom: -33px;
     right: 3px;
     pointer-events: all;
+
+    &:focus {
+      outline: 0 none;
+
+      &::after {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background-color: #fff;
+        border-radius: 2px;
+        position: absolute;
+        bottom: 4px;
+        left: -6px;
+      }
+    }
   }
 }
 
@@ -140,6 +160,7 @@
   font-size: 14px;
 
   &:focus {
+    outline: 0 none;
     bottom: 80px;
     opacity: 1;
   }
