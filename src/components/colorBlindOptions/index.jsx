@@ -47,19 +47,23 @@ class ColorBlindOptions extends Component {
     };
   }
 
-  componentWillReceiveProps() {
-    this.checkFailers();
+  componentWillReceiveProps(nextProps) {
+    const colorsChanged = nextProps.foreground !== this.props.foreground
+      || nextProps.background !== this.props.background;
+    if (colorsChanged) {
+      this.checkFailers(nextProps);
+    }
   }
 
   componentDidMount() {
     this.checkFailers();
   }
 
-  checkFailers() {
+  checkFailers(nextProps) {
     const {
       foreground,
       background,
-    } = this.props;
+    } = (nextProps || this.props);
     const failures = [];
     const commonFail = contrast(chroma(foreground), chroma(background)) < 3;
     if (commonFail) {
