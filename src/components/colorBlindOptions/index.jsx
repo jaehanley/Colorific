@@ -77,13 +77,12 @@ class ColorBlindOptions extends Component {
         }
       });
     });
-    this.setState({
-      failures
-    })
-  }
-
-  isFailedState(name) {
-    return this.state.failures.find((elem) => elem === name) !== undefined;
+    const shouldUpdate = this.state.failures !== failures;
+    if (shouldUpdate) {
+      this.setState({
+        failures
+      });
+    }
   }
 
   render() {
@@ -93,6 +92,12 @@ class ColorBlindOptions extends Component {
       background,
       pickerShown
     } = this.props;
+
+    const { failures } = this.state;
+
+    const isFailedState = (name) => {
+      return failures.find((elem) => elem === name) !== undefined;
+    };
 
     let containerBackground = chroma(background);
     if (blindness !== 'common') {
@@ -142,7 +147,7 @@ class ColorBlindOptions extends Component {
                   }}/>
                 <span>
                   {type}
-                  {this.isFailedState(type) && (
+                  {isFailedState(type) && (
                     <i
                       className={style.failed}
                       style={{ color: containerBackground }}>
@@ -188,7 +193,7 @@ class ColorBlindOptions extends Component {
                     }}/>
                   <span>
                     {type}
-                    {this.isFailedState(type) && (
+                    {isFailedState(type) && (
                       <i
                         className={style.failed}
                         style={{ color: secondRowColor}}>
