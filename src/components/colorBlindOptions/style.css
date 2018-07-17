@@ -2,6 +2,10 @@
   &.lightText {
     color: #fff;
 
+    & .failed {
+      background-color: #fff;
+    }
+
     & .blindOption input:focus {
       background-color: rgba(255,255,255,0.2);
     }
@@ -12,6 +16,10 @@
 
     & .blindOption input:focus {
       background-color: rgba(0,0,0,0.2);
+    }
+
+    & .failed {
+      background-color: #000;
     }
   }
 }
@@ -28,10 +36,18 @@
 
   &.lightText {
     color: #fff;
+
+    & .failed {
+      background-color: #fff;
+    }
   }
   
   &.darkText {
     color: #000;
+
+    & .failed {
+      background-color: #000;
+    }
   }
 }
 
@@ -66,6 +82,7 @@
     opacity: 0.7;
     transition: opacity 0.2s;
     user-select: none;
+    display: flex;
 
     &:hover {
       opacity: 1;
@@ -114,4 +131,17 @@
   display: none;
   width: 10px;
   height: 10px;
+}
+
+.failed {
+  font-style: normal;
+  display: flex;
+  width: 14px;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 10px;
 }

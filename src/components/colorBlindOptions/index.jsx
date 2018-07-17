@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import chroma from 'chroma-js';
+import chroma, { contrast } from 'chroma-js';
 import blind from 'color-blind';
 import { setColorBlind } from 'actions/colors';
 import style from './style.css';
@@ -32,11 +32,58 @@ const blindSettings = {
 
 class ColorBlindOptions extends Component {
   static propTypes = {
+    foreground: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
     blindness: PropTypes.string.isRequired,
     setColorBlind: PropTypes.func.isRequired,
     setting: PropTypes.string,
     pickerShown: PropTypes.bool.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      failures: []
+    };
+  }
+
+  componentWillReceiveProps() {
+    this.checkFailers();
+  }
+
+  componentDidMount() {
+    this.checkFailers();
+  }
+
+  checkFailers() {
+    const {
+      foreground,
+      background,
+    } = this.props;
+    const failures = [];
+    const commonFail = contrast(chroma(foreground), chroma(background)) < 3;
+    if (commonFail) {
+      failures.push('common');
+    }
+    Object.keys(blindSettings).forEach((key) => {
+      blindSettings[key].forEach((state) => {
+        const modifier = blind[state];
+        const failed = contrast(modifier(foreground), modifier(background)) < 3;
+        if (failed) {
+          if (failures.find((elem) => elem === key) === undefined) {
+            failures.push(key);
+          }
+          failures.push(state);
+        }
+      });
+    });
+    this.setState({
+      failures
+    })
+  }
+
+  isFailedState(name) {
+    return this.state.failures.find((elem) => elem === name) !== undefined;
   }
 
   render() {
@@ -93,7 +140,16 @@ class ColorBlindOptions extends Component {
                   onChange={(e) => {
                     this.props.setColorBlind(e.target.value, blindSettings[e.target.value] ? blindSettings[e.target.value][0] : null)
                   }}/>
-                <span>{type}</span>
+                <span>
+                  {type}
+                  {this.isFailedState(type) && (
+                    <i
+                      className={style.failed}
+                      style={{ color: containerBackground }}>
+                      !
+                    </i>
+                  )}
+                </span>
                 <Triangle
                   className={style.triangle}
                   fill={type === 'common' ? previewColor : secondRowColor}
@@ -130,7 +186,16 @@ class ColorBlindOptions extends Component {
                     onChange={(e) => {
                       this.props.setColorBlind(blindness, e.target.value);
                     }}/>
-                  <span>{type}</span>
+                  <span>
+                    {type}
+                    {this.isFailedState(type) && (
+                      <i
+                        className={style.failed}
+                        style={{ color: secondRowColor}}>
+                        !
+                      </i>
+                    )}
+                  </span>
                   <Triangle
                     className={style.triangle}
                     fill={previewColor}
@@ -182,6 +247,7 @@ class Triangle extends Component {
 
 function mapStateToProps(state) {
   return {
+    foreground: state.colors.foreground,
     background: state.colors.background,
     blindness: state.colors.blindness,
     setting: state.colors.setting,
