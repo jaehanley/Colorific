@@ -2,10 +2,7 @@
   &.lightText {
     color: #fff;
 
-    & .indicator {
-      background-color: #fff;
-    }
-
+    & .indicator,
     & .failed {
       background-color: #fff;
     }
@@ -14,16 +11,7 @@
   &.darkText {
     color: #000;
 
-    & .blindOption {
-        & input:focus {
-        background-color: rgba(0,0,0,0.2);
-      }
-    }
-
-    & .indicator {
-      background-color: #000;
-    }
-
+    & .indicator,
     & .failed {
       background-color: #000;
     }
@@ -84,15 +72,16 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 
   & .indicator {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
     opacity: 0.35;
     display: none;
     position: absolute;
-    bottom: 3px;
+    bottom: -2px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -103,7 +92,7 @@
     }
 
     & input:focus ~ .indicator {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 
