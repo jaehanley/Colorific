@@ -2,25 +2,32 @@
   &.lightText {
     color: #fff;
 
-    & .failed {
+    & .indicator {
       background-color: #fff;
     }
 
-    & .blindOption input:focus {
-      background-color: rgba(255,255,255,0.2);
+    & .failed {
+      background-color: #fff;
     }
   }
   
   &.darkText {
     color: #000;
 
-    & .blindOption input:focus {
-      background-color: rgba(0,0,0,0.2);
+    & .blindOption {
+        & input:focus {
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+
+    & .indicator {
+      background-color: #000;
     }
 
     & .failed {
       background-color: #000;
     }
+
   }
 }
 
@@ -78,10 +85,31 @@
   align-items: center;
   position: relative;
 
+  & .indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    opacity: 0.35;
+    display: none;
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.active {
+    & .indicator {
+      display: block;
+    }
+
+    & input:focus ~ .indicator {
+      opacity: 1;
+    }
+  }
+
   & span {
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    user-select: none;
+    opacity: 0.65;
+    pointer-events: none;
     display: flex;
 
     &:hover {
@@ -105,10 +133,6 @@
       & + span {
         opacity: 1;
       }
-
-      & ~ .triangle {
-        display: block;
-      }
     }
     
     &:hover {
@@ -120,17 +144,13 @@
     &:focus {
       outline: 0 none;
     }
-  }
-}
 
-.triangle {
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  margin-left: -5px;
-  display: none;
-  width: 10px;
-  height: 10px;
+    &:active {
+      & + span {
+        opacity: 0.3;
+      }
+    }
+  }
 }
 
 .failed {

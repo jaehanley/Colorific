@@ -136,16 +136,17 @@ class ColorBlindOptions extends Component {
             Color Perception
           </b>
           {blindTypes.map((type) => {
+            const isActive = type === blindness;
             return (
               <label
                 key={type}
-                className={style.blindOption}>
+                className={`${style.blindOption} ${isActive ? style.active : undefined}`}>
                 <input
                   disabled={pickerShown}
                   type='radio'
                   name='blind_type'
                   value={type}
-                  checked={type === blindness}
+                  checked={isActive}
                   onChange={(e) => {
                     this.props.setColorBlind(e.target.value, blindSettings[e.target.value] ? blindSettings[e.target.value][0] : null)
                   }}/>
@@ -159,10 +160,7 @@ class ColorBlindOptions extends Component {
                     </i>
                   )}
                 </span>
-                <Triangle
-                  className={style.triangle}
-                  fill={type === 'common' ? previewColor : secondRowColor}
-                  />
+                <i className={style.indicator} />
               </label>
             );
           })}
@@ -181,17 +179,18 @@ class ColorBlindOptions extends Component {
               Blindness
             </b>
             {blindSettings[blindness].map((type) => {
+              const isActive = type === setting;
               return (
                 <label
                   key={type}
-                  className={style.blindOption}
+                  className={`${style.blindOption} ${isActive ? style.active : undefined}`}
                   >
                   <input
                     disabled={pickerShown}
                     type='radio'
                     name='blind_setting'
                     value={type}
-                    checked={type === setting}
+                    checked={isActive}
                     onChange={(e) => {
                       this.props.setColorBlind(blindness, e.target.value);
                     }}/>
@@ -205,51 +204,13 @@ class ColorBlindOptions extends Component {
                       </i>
                     )}
                   </span>
-                  <Triangle
-                    className={style.triangle}
-                    fill={previewColor}
-                    />
+                  <i className={style.indicator} />
                 </label>
               );
             })}
           </div>
         )}
       </div>
-    );
-  }
-}
-
-class Triangle extends Component {
-  static propTypes = {
-    fill: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-    ]),
-    className: PropTypes.string,
-  }
-
-  static defaultProps = {
-    fill: '#ffffff',
-  }
-
-  render() {
-    const {
-      fill,
-      className,
-    } = this.props;
-
-    return (
-      <svg
-        className={className}
-        width='6'
-        height='4'
-        viewBox='0 0 6 4'
-        xmlns='http://www.w3.org/2000/svg'>
-        <path
-          fill={fill}
-          d='M3 0l3 4H0'
-          fillRule='evenodd'/>
-      </svg>
     );
   }
 }
