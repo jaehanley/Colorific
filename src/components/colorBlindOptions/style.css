@@ -32,6 +32,7 @@
   &.lightText {
     color: #fff;
 
+    & .indicator,
     & .failed {
       background-color: #fff;
     }
@@ -40,6 +41,7 @@
   &.darkText {
     color: #000;
 
+    & .indicator,
     & .failed {
       background-color: #000;
     }
