@@ -1,0 +1,128 @@
+.pickerContainer {
+  position: absolute;
+  bottom: 90%;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px,
+    rgba(0, 0, 0, 0.3) 0px 4px 8px;
+  z-index: 1;
+}
+
+:global(.chrome-picker) {
+  box-shadow: none !important;
+}
+
+.container {
+  position: relative;
+}
+
+.doneBtn {
+  font-weight: bold;
+  color: #2788F6;
+  appearance: none;
+  background: transparent;
+  border: 0 none;
+  margin: 5px 10px 5px 0;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0;
+}
+
+.button {
+  height: 25px;
+  width: 80px;
+  appearance: none;
+  border: solid 2px #fff;
+  border-radius: 3px;
+}
+
+.buttonLabel,
+.labelText,
+.labelHex {
+  display: block;
+  text-align: center;
+}
+
+.labelText {
+  font-size: 14px;
+  line-height: 15px;
+  margin-bottom: 5px;
+}
+
+.labelHex {
+  font-size: 14px;
+  line-height: 15px;
+  margin-top: 5px;
+  font-style: normal;
+  letter-spacing: 0.2px;
+}
+
+.pickerView {
+  width: 180px;
+  padding: 10px;
+}
+
+.hueContainer,
+.saturationContainer {
+  position: relative;
+  user-select: none;
+}
+
+.hueContainer {
+  height: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.huePickerCircle,
+.saturationPickerCircle {
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  border: solid 1px #efefef;
+}
+
+.huePickerCircle {
+  transform: translate(-50%, -6px);
+  user-select: none;
+}
+
+.saturationContainer {
+  height: 100px;
+}
+
+.saturationPickerCircle {
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+  user-select: none;
+}
+
+@media (max-width: 500px) {
+  .labelText {
+    display: none;
+  }
+
+  .labelHex {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .button {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+
+  .container {
+    width: 55px;
+  }
+}
