@@ -1,4 +1,7 @@
 # Colorific
+Colorific is a progressive web app that helps you find color pairings for users with sight and color perception issues. It displays and rates color contrast ratios for common color perception, Protanomaly, Deuteranomaly, Tritanomaly, Protanopia, Deuteranopia, Tritanopia, Achromatomaly, and Acromatopsia.
+
+As a progressive web app, this app can be installed on iOS, Android, ChromeOS, and on Mac OS and Windows using the Chrome browser.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
