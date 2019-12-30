@@ -6,6 +6,7 @@
   height: 100%;
   display: grid;
   grid-template-rows: 1fr auto;
+  row-gap: 1px;
 }
 
 .controllers {
