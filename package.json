@@ -1,5 +1,9 @@
 {
   "name": "colorific",
+  "author": {
+    "name": "Jae Hanley",
+    "email": "hi@jaehanley.com"
+  },
   "version": "1.0.0",
   "private": false,
   "dependencies": {
